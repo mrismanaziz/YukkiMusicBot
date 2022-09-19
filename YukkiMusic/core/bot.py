@@ -31,6 +31,7 @@ class YukkiBot(Client):
         get_me = await self.get_me()
         self.username = get_me.username
         self.id = get_me.id
+        LOGGER(__name__).info(f"Started Bot as {get_me.username}")
         try:
             await self.send_message(
                 config.LOG_GROUP_ID, "Bot Started"
