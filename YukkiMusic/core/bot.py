@@ -31,20 +31,19 @@ class YukkiBot(Client):
         get_me = await self.get_me()
         self.username = get_me.username
         self.id = get_me.id
-        LOGGER(__name__).info(f"Started Bot as {get_me.username}")
         try:
             await self.send_message(
                 config.LOG_GROUP_ID, "Bot Started"
             )
         except:
             LOGGER(__name__).error(
-                "Bot has failed to access the log Group. Make sure that you have added your bot to your log channel and promoted as admin!"
+                f"@{get_me.username} has failed to access the log Group. Make sure that you have added @{get_me.username} to your log channel and promoted as admin!"
             )
             sys.exit()
         a = await self.get_chat_member(config.LOG_GROUP_ID, self.id)
         if a.status != "administrator":
             LOGGER(__name__).error(
-                "Please promote Bot as Admin in Logger Group"
+                f"Please promote @{get_me.username} as Admin in Logger Group"
             )
             sys.exit()
         if get_me.last_name:
