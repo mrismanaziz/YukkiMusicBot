@@ -40,10 +40,10 @@ async def reload_admin_cache(client, message: Message, _):
             chat_id, filter="administrators"
         )
         authusers = await get_authuser_names(chat_id)
-        adminlist[chat_id] = []
-        for user in admins:
-            if user.can_manage_voice_chats:
-                adminlist[chat_id].append(user.user.id)
+        adminlist[chat_id] = [
+            user.user.id for user in admins if user.can_manage_voice_chats
+        ]
+
         for user in authusers:
             user_id = await alpha_to_int(user)
             adminlist[chat_id].append(user_id)
